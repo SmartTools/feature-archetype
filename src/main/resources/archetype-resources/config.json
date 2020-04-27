@@ -1,0 +1,65 @@
+{
+  "featureName": "${groupId}:${artifactId}:${version}",
+  "afterFeatures": [
+    "info.smart_tools.smartactors:database-postgresql-create-collection-if-not-exists"
+  ],
+  "objects": [
+    {
+      "name": "<actor-name>",
+      "kind": "stateless_actor/actor",
+      "dependency": "<actor-reference>"
+    },
+    {
+      "name": "<response-sender-name>/use-if-needed",
+      "kind": "raw",
+      "dependency": "response sender receiver"
+    }
+  ],
+  "maps": [
+    {
+      "id": "<internal-chain-error-handler-name>",
+      "externalAccess": false,
+      "steps": [
+        {
+          "target": "<response-sender-name>"
+        }
+      ],
+      "exceptional": []
+    },
+    {
+      "id": "<external-chain>",
+      "externalAccess": true,
+      "steps": [
+        {
+          "target": "<actor-name>",
+          "handler": "<handler-name>",
+          "wrapper": {
+            "in_<getStuff>": "message/<field-to-get>",
+            "out_<setStuff>": "response/<field-to-set>"
+          }
+        },
+        {
+          "target": "<response-sender-name>"
+        }
+      ],
+      "exceptional": [
+        {
+          "class": "<actor-exception-reference>",
+          "chain": "<internal-chain-error-handler-name>",
+          "after": "<stuff-after-exception-occurs(continue/break/repeat?)>"
+        }
+      ]
+    }
+  ],
+  "onFeatureLoading": [
+    {
+      "chain": "createCollections",
+      "messages": [
+        {
+          "collectionName": "<collection-name>",
+          "connectionOptionsRegistrationName": "<connection-option-name>"
+        }
+      ]
+    }
+  ]
+}

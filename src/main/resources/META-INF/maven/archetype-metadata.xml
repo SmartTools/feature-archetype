@@ -1,0 +1,62 @@
+<archetype-descriptor
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0
+        http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+        xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        name="feature-archetype"
+        partial="false">
+    <requiredProperties>
+        <!-- This is used in pom.xml of the future app. -->
+        <requiredProperty key="groupId">
+            <defaultValue>info.smart-tools.common</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="groupPackage">
+            <defaultValue>info.smart_tools.common</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="artifactId">
+            <defaultValue>test-feature</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="artifactPackage">
+            <defaultValue>test_feature</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="package">
+            <defaultValue>${groupPackage}.${artifactPackage}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="repoId"/>
+        <requiredProperty key="repoUrl"/>
+
+        <requiredProperty key="version">
+            <defaultValue>0.1.0</defaultValue>
+        </requiredProperty>
+    </requiredProperties>
+    <fileSets>
+        <fileSet filtered="true" packaged="true">
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/template_actor/TemplateActor.java</include>
+                <include>**/template_actor/TemplateActorWrapper.java</include>
+                <include>**/template_actor/TemplateActorException.java</include>
+                <include>**/template_actor_plugin/TemplateActorPlugin.java</include>
+                <include>**/template_actor_plugin/TemplateChainStrategyPlugin.java</include>
+                <include>**/actors/template_actor/package-info.java</include>
+                <include>**/plugins/template_actor_plugin/package-info.java</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" packaged="true">
+            <directory>src/test/java</directory>
+            <includes>
+                <include>**/template_actor/TestTemplateActor.java</include>
+                <include>**/template_actor_plugin/TestTemplateActorPlugin.java</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true">
+            <directory/>
+            <includes>
+                <include>config.json</include>
+                <include>bin.xml</include>
+                <include>README.md</include>
+                <include>API.md</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>
